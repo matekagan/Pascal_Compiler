@@ -1,4 +1,4 @@
-grammar pascal;
+grammar Pascal;
 
 program
    : programHeading block DOT
