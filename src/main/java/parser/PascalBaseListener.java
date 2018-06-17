@@ -112,18 +112,6 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnsignedNumber(PascalParser.UnsignedNumberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnsignedNumber(PascalParser.UnsignedNumberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterUnsignedInteger(PascalParser.UnsignedIntegerContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -148,42 +136,6 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTypeDefinition(PascalParser.TypeDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeDefinition(PascalParser.TypeDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunctionType(PascalParser.FunctionTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionType(PascalParser.FunctionTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterProcedureType(PascalParser.ProcedureTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitProcedureType(PascalParser.ProcedureTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterType(PascalParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -191,18 +143,6 @@ public class PascalBaseListener implements PascalListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitType(PascalParser.TypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSimpleType(PascalParser.SimpleTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSimpleType(PascalParser.SimpleTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -340,18 +280,6 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstList(PascalParser.ConstListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConstList(PascalParser.ConstListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunctionDeclaration(PascalParser.FunctionDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -359,30 +287,6 @@ public class PascalBaseListener implements PascalListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunctionDeclaration(PascalParser.FunctionDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterResultType(PascalParser.ResultTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitResultType(PascalParser.ResultTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStatement(PascalParser.StatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStatement(PascalParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -580,18 +484,6 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterActualParameter(PascalParser.ActualParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitActualParameter(PascalParser.ActualParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterEmptyStatement(PascalParser.EmptyStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -599,18 +491,6 @@ public class PascalBaseListener implements PascalListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEmptyStatement(PascalParser.EmptyStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterEmpty(PascalParser.EmptyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEmpty(PascalParser.EmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -647,18 +527,6 @@ public class PascalBaseListener implements PascalListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStatements(PascalParser.StatementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterConditionalStatement(PascalParser.ConditionalStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConditionalStatement(PascalParser.ConditionalStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -731,30 +599,6 @@ public class PascalBaseListener implements PascalListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitForList(PascalParser.ForListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInitialValue(PascalParser.InitialValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInitialValue(PascalParser.InitialValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFinalValue(PascalParser.FinalValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFinalValue(PascalParser.FinalValueContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

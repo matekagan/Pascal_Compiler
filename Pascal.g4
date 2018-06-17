@@ -29,14 +29,10 @@ constantDefinition
    ;
 
 constant
-   : unsignedNumber
-   | sign unsignedNumber
+   : unsignedInteger
+   | sign unsignedInteger
    | identifier
    | sign identifier
-   ;
-
-unsignedNumber
-   : unsignedInteger
    ;
 
 unsignedInteger
@@ -48,23 +44,7 @@ sign
    | MINUS
    ;
 
-typeDefinition
-   : identifier EQUAL (type | functionType | procedureType)
-   ;
-
-functionType
-   : FUNCTION (formalParameterList)? COLON resultType
-   ;
-
-procedureType
-   : PROCEDURE (formalParameterList)?
-   ;
-
 type
-   : simpleType
-   ;
-
-simpleType
    : scalarType
    | typeIdentifier
    ;
@@ -72,13 +52,13 @@ simpleType
 scalarType
     : LPAREN identifierList RPAREN
     ;
-   
+
 typeIdentifier
    : identifier
-   | (CHAR | BOOLEAN | INTEGER | REAL | STRING)
+   | (CHAR | BOOLEAN | INTEGER )
    ;
-      
-   
+
+
 variableDeclarationPart
    : VAR variableDeclaration (SEMI variableDeclaration)* SEMI
    ;
@@ -119,21 +99,10 @@ identifierList
    : identifier (COMMA identifier)*
    ;
 
-constList
-   : constant (COMMA constant)*
-   ;
-
 functionDeclaration
-   : FUNCTION identifier (formalParameterList)? COLON resultType SEMI block
+   : FUNCTION identifier (formalParameterList)? COLON typeIdentifier SEMI block
    ;
 
-resultType
-   : typeIdentifier
-   ;
-
-statement
-   : unlabelledStatement
-   ;
 
 unlabelledStatement
    : simpleStatement
@@ -180,7 +149,7 @@ factor
    ;
 
 unsignedConstant
-   : unsignedNumber
+   : unsignedInteger
    | NIL
    ;
 
@@ -189,7 +158,7 @@ functionDesignator
    ;
 
 parameterList
-   : actualParameter (COMMA actualParameter)*
+   : expression (COMMA expression)*
    ;
 
 set
@@ -210,21 +179,13 @@ procedureStatement
    : identifier (LPAREN parameterList RPAREN)?
    ;
 
-actualParameter
-   : expression
-   ;
-
 emptyStatement
    :
    ;
 
-empty
-   :/* empty */
-   ;
-
 structuredStatement
    : compoundStatement
-   | conditionalStatement
+   | ifStatement
    | repetetiveStatement
    ;
 
@@ -233,15 +194,11 @@ compoundStatement
    ;
 
 statements
-   : statement (SEMI statement)*
-   ;
-
-conditionalStatement
-   : ifStatement
+   : unlabelledStatement (SEMI unlabelledStatement)*
    ;
 
 ifStatement
-   : IF expression THEN statement (: ELSE statement)?
+   : IF expression THEN unlabelledStatement (: ELSE unlabelledStatement)?
    ;
 
 repetetiveStatement
@@ -251,7 +208,7 @@ repetetiveStatement
    ;
 
 whileStatement
-   : WHILE expression DO statement
+   : WHILE expression DO unlabelledStatement
    ;
 
 repeatStatement
@@ -259,21 +216,14 @@ repeatStatement
    ;
 
 forStatement
-   : FOR identifier ASSIGN forList DO statement
+   : FOR identifier ASSIGN forList DO unlabelledStatement
    ;
 
 forList
-   : initialValue (TO | DOWNTO) finalValue
+   : expression (TO | DOWNTO) expression
    ;
 
-initialValue
-   : expression
-   ;
 
-finalValue
-   : expression
-   ;
-   
    
 fragment A
    : ('a' | 'A')

@@ -88,16 +88,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitConstant(PascalParser.ConstantContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#unsignedNumber}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnsignedNumber(PascalParser.UnsignedNumberContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#unsignedNumber}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnsignedNumber(PascalParser.UnsignedNumberContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#unsignedInteger}.
 	 * @param ctx the parse tree
 	 */
@@ -118,36 +108,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitSign(PascalParser.SignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#typeDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypeDefinition(PascalParser.TypeDefinitionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#typeDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypeDefinition(PascalParser.TypeDefinitionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#functionType}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionType(PascalParser.FunctionTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#functionType}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionType(PascalParser.FunctionTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#procedureType}.
-	 * @param ctx the parse tree
-	 */
-	void enterProcedureType(PascalParser.ProcedureTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#procedureType}.
-	 * @param ctx the parse tree
-	 */
-	void exitProcedureType(PascalParser.ProcedureTypeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#type}.
 	 * @param ctx the parse tree
 	 */
@@ -157,16 +117,6 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitType(PascalParser.TypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#simpleType}.
-	 * @param ctx the parse tree
-	 */
-	void enterSimpleType(PascalParser.SimpleTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#simpleType}.
-	 * @param ctx the parse tree
-	 */
-	void exitSimpleType(PascalParser.SimpleTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#scalarType}.
 	 * @param ctx the parse tree
@@ -278,16 +228,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitIdentifierList(PascalParser.IdentifierListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#constList}.
-	 * @param ctx the parse tree
-	 */
-	void enterConstList(PascalParser.ConstListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#constList}.
-	 * @param ctx the parse tree
-	 */
-	void exitConstList(PascalParser.ConstListContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#functionDeclaration}.
 	 * @param ctx the parse tree
 	 */
@@ -297,26 +237,6 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionDeclaration(PascalParser.FunctionDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#resultType}.
-	 * @param ctx the parse tree
-	 */
-	void enterResultType(PascalParser.ResultTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#resultType}.
-	 * @param ctx the parse tree
-	 */
-	void exitResultType(PascalParser.ResultTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterStatement(PascalParser.StatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitStatement(PascalParser.StatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#unlabelledStatement}.
 	 * @param ctx the parse tree
@@ -478,16 +398,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitProcedureStatement(PascalParser.ProcedureStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#actualParameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterActualParameter(PascalParser.ActualParameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#actualParameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitActualParameter(PascalParser.ActualParameterContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#emptyStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -497,16 +407,6 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEmptyStatement(PascalParser.EmptyStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#empty}.
-	 * @param ctx the parse tree
-	 */
-	void enterEmpty(PascalParser.EmptyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#empty}.
-	 * @param ctx the parse tree
-	 */
-	void exitEmpty(PascalParser.EmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#structuredStatement}.
 	 * @param ctx the parse tree
@@ -537,16 +437,6 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatements(PascalParser.StatementsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#conditionalStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterConditionalStatement(PascalParser.ConditionalStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#conditionalStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitConditionalStatement(PascalParser.ConditionalStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#ifStatement}.
 	 * @param ctx the parse tree
@@ -607,24 +497,4 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForList(PascalParser.ForListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#initialValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterInitialValue(PascalParser.InitialValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#initialValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitInitialValue(PascalParser.InitialValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#finalValue}.
-	 * @param ctx the parse tree
-	 */
-	void enterFinalValue(PascalParser.FinalValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#finalValue}.
-	 * @param ctx the parse tree
-	 */
-	void exitFinalValue(PascalParser.FinalValueContext ctx);
 }
