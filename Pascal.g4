@@ -120,7 +120,7 @@ assignmentStatement
    ;
 
 variable
-   : (identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2 | DOT identifier)*
+   : (identifier) (LBRACK expression (COMMA expression)* RBRACK | LBRACK2 expression (COMMA expression)* RBRACK2)*
    ;
 
 expression

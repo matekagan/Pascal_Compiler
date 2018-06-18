@@ -1,7 +1,9 @@
 Program Lesson1_Program3;
-Var       
-    Sum : Integer;
+var
+  Cos, Elo : Integer;
+  Booljan : Boolean;
 Begin 
-	Sum := 1 + 2;
-	Writeln(Sum);
+Elo := 4;
+Cos := 2 + Elo;
+Writeln(Sum);
 End.

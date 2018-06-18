@@ -3,76 +3,67 @@ package Implementation;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.PascalBaseListener;
 import parser.PascalParser;
+import utils.DataType;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class PascalListenerImplementation extends PascalBaseListener {
-
+    private FileHandler fileHandler;
     private HashMap<String,Integer> variables ;
+    private Stack<Object> stack;
+    private List<String> globalVariablesNames;
 
     public PascalListenerImplementation(){
         variables = new HashMap<String, Integer>();
+        fileHandler = new FileHandler("out.s");
+        stack = new Stack<Object>();
+        globalVariablesNames = new LinkedList<String>();
     }
 
     @Override
     public void enterProgram(PascalParser.ProgramContext ctx) {
         System.out.println("Entering Program \n");
-
+        fileHandler.writeString("\n\n");
     }
 
     @Override
     public void exitProgram(PascalParser.ProgramContext ctx) {
         System.out.println("Exiting Program");
+        fileHandler.closeFile();
     }
 
     @Override
-    public void exitAssignmentStatement(PascalParser.AssignmentStatementContext ctx) {
-       // String varName = ctx.getChild(0).getText();
-       // int varValue = Integer.parseInt(ctx.getChild(2).getText());
-        //variables.put(varName,varValue);
+    public void enterConstantDefinitionPart(PascalParser.ConstantDefinitionPartContext ctx) {
+    }
 
-        for (ParseTree tree: ctx.children){
-            getToBottom(tree);
-            System.out.println(tree.toStringTree());
-            System.out.println(tree.getText());
-            System.out.println(tree.getPayload().getClass());
+
+    @Override
+    public void exitConstantDefinition(PascalParser.ConstantDefinitionContext ctx) {
+        String constName = ctx.children.get(0).getText();
+        String constValue = ctx.children.get(2).getText();
+        fileHandler.writeConstantDefinition(constName,constValue);
+    }
+
+    @Override
+    public void enterVariableDeclarationPart(PascalParser.VariableDeclarationPartContext ctx) {
+        fileHandler.writeString(".data");
+    }
+
+    @Override public void exitVariableDeclaration(PascalParser.VariableDeclarationContext ctx) {
+        DataType dataType = new DataType(ctx.children.get(2).getText());
+        for (String s : globalVariablesNames) fileHandler.writeVariableDeclaration(s,dataType);
+        globalVariablesNames.clear();
+    }
+
+    @Override
+    public void exitIdentifierList(PascalParser.IdentifierListContext ctx) {
+        ParseTree tmpTree;
+        for (int i=0; i< ctx.children.size(); i = i+2){
+            tmpTree = ctx.children.get(i);
+            globalVariablesNames.add(tmpTree.getText());
         }
-
-
     }
-
-    private void getToBottom(ParseTree tree){
-        if (tree.getChildCount() != 0){
-            System.out.println(tree.getChildCount());
-            for (int i = 0; i < tree.getChildCount(); i++){
-                getToBottom(tree.getChild(i));
-            }
-        } else System.out.println("----");
-    }
-
-    public void evaluateExpression(String expression){
-        String [] simpleExpresions = expression.trim().split(" = | <> | < | <= | >= | > | in ");
-        }
-
-    public void evaluateSimpleEXpression(String simpleExpression){
-        String[] terms = simpleExpression.trim().split(" + | - | [oO][rR]");
-        }
-
-    public void evaluateTerm(String term){
-        String[] signedFactors = term.trim().split("\\* | / | [dD][iI][vV] | [mM][oO][dD] | [aA][nN][dD]]");
-    }
-
-    public void evaluateSignedFactor(String signedFactor){
-        String[] factor = signedFactor.trim().split("-| \\+");
-    }
-
-    public void evaluateFactor(String factor){
-        factor = factor.trim();
-        if (factor.matches("\\d\\*")); // liczba
-        else if (factor.matches("[a-z|A-Z][a-z|A-Z|0-9|_]")); // identyfikator
-        else if (factor.matches("^\\([\\S| ]*\\)$")); // expression ?
-
-
-    }
-
 }
