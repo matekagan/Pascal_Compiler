@@ -123,4 +123,28 @@ public class PascalListenerImplementation extends PascalBaseListener {
         fileHandler.closeFile();
     }
 
+
+
+    @Override
+    public void enterAssignmentStatement(PascalParser.AssignmentStatementContext ctx){
+        String variable = ctx.variable().getText();
+        String expression = ctx.expression().getText();
+        fileHandler.writeString(variable + " = " + expression);
+    }
+
+    @Override
+    public void exitAssignmentStatement(PascalParser.AssignmentStatementContext ctx){
+        fileHandler.writeString(" ; \n");
+    }
+
+
+
+
+
+
+
 }
+
+
+
+
