@@ -75,6 +75,25 @@ public class FileHandler {
         }
     }
 
+    public void writeForStatement(String identifier, String initialValue, String finalValue, String[] signs){
+        try {
+            bufferedWriter.write("\nfor(int ");
+            bufferedWriter.write(identifier);
+            bufferedWriter.write(" = ");
+            bufferedWriter.write(initialValue);
+            bufferedWriter.write("; ");
+            bufferedWriter.write(identifier);
+            bufferedWriter.write(" " + signs[0] + " ");
+            bufferedWriter.write(finalValue);
+            bufferedWriter.write("; ");
+            bufferedWriter.write(identifier);
+            bufferedWriter.write(signs[1] + " ");
+            bufferedWriter.write(")");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void closeFile(){
         try {
             bufferedWriter.close();
