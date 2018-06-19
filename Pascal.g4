@@ -191,7 +191,7 @@ variable
    ;
 
 expression
-   : simpleExpression ((EQUAL | NOT_EQUAL | LT | LE | GE | GT | IN) simpleExpression)*
+   : simpleExpression ((EQUAL | NOT_EQUAL | LT | LE | GE | GT) simpleExpression)*
    ;
 
 simpleExpression
@@ -510,18 +510,10 @@ FUNCTION
    : F U N C T I O N
    ;
 
-
-
-
-
 IF
    : I F
    ;
 
-
-IN
-   : I N
-   ;
 
 
 INTEGER
