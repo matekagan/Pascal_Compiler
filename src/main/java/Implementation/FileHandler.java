@@ -22,30 +22,54 @@ public class FileHandler {
     public void writeString(String str) {
         try {
             bufferedWriter.write(str);
-            bufferedWriter.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void writeConstantDefinition(String identifier, String value){
-
+    public void writeConstantDefinition(String identifier, String value, boolean global){
+        DataType type;
         try {
-            bufferedWriter.write(".equ ");
-            bufferedWriter.write(identifier + ", ");
-            bufferedWriter.write(value);
-            bufferedWriter.newLine();
+            if (!global){
+                type = DataType.getDataTypeFromValue(value);
+                bufferedWriter.write("const ");
+                bufferedWriter.write(type.toString());
+                bufferedWriter.write(" ");
+                bufferedWriter.write(identifier + " = ");
+                bufferedWriter.write(value);
+                bufferedWriter.write(";");
+                bufferedWriter.newLine();
+            }
+            else {
+                bufferedWriter.write("#define ");
+                bufferedWriter.write(identifier);
+                bufferedWriter.write(" ");
+                bufferedWriter.write(value);
+                bufferedWriter.newLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void writeVariableDeclaration(String identifier, DataType dataType){
+    public void writeVariableDeclaration(String identifierList, DataType dataType){
         try {
-            bufferedWriter.write(identifier + ": ");
             bufferedWriter.write(dataType.toString());
+            bufferedWriter.write(" ");
+            bufferedWriter.write(identifierList + ";");
             bufferedWriter.newLine();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeParameterDeclaration(String identifier, DataType type, boolean first){
+        try {
+            if (!first) bufferedWriter.write(", ");
+            bufferedWriter.write(type.toString());
+            bufferedWriter.write(" ");
+            bufferedWriter.write(identifier);
         } catch (IOException e) {
             e.printStackTrace();
         }

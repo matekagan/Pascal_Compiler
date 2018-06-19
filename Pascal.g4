@@ -1,11 +1,12 @@
 grammar Pascal;
 
 program
-   : programHeading block DOT
+   : programHeading (INTERFACE)? block DOT
    ;
 
 programHeading
    : PROGRAM identifier (LPAREN identifierList RPAREN)? SEMI
+   | UNIT identifier SEMI
    ;
 
 identifier
@@ -13,11 +14,7 @@ identifier
    ;
 
 block
-   : (constantDefinitionPart | variableDeclarationPart | procedureAndFunctionDeclarationPart | usesUnitsPart)* compoundStatement
-   ;
-
-usesUnitsPart
-   : USES identifierList SEMI
+   : (constantDefinitionPart | variableDeclarationPart | procedureAndFunctionDeclarationPart)* compoundStatement
    ;
 
 constantDefinitionPart
@@ -28,14 +25,25 @@ constantDefinition
    : identifier EQUAL constant
    ;
 
+
 constant
-   : unsignedInteger
-   | sign unsignedInteger
+   : unsignedNumber
+   | sign unsignedNumber
    | identifier
    | sign identifier
+   | string
+   ;
+
+unsignedNumber
+   : unsignedInteger
+   | unsignedReal
    ;
 
 unsignedInteger
+   : NUM_INT
+   ;
+
+unsignedReal
    : NUM_INT
    ;
 
@@ -44,18 +52,69 @@ sign
    | MINUS
    ;
 
+string
+   : STRING_LITERAL
+   ;
+
+
 type
+   : simpleType
+   | structuredType
+   ;
+
+simpleType
    : scalarType
+   | subrangeType
    | typeIdentifier
+   | stringtype
    ;
 
 scalarType
-    : LPAREN identifierList RPAREN
-    ;
+   : LPAREN identifierList RPAREN
+   ;
+
+subrangeType
+   : constant DOTDOT constant
+   ;
 
 typeIdentifier
-   : identifier
-   | (CHAR | BOOLEAN | INTEGER )
+   : (CHAR | BOOLEAN | INTEGER | REAL | STRING)
+   ;
+
+structuredType
+   : unpackedStructuredType
+   ;
+
+unpackedStructuredType
+   : arrayType
+   | fileType
+   ;
+
+stringtype
+   : STRING LBRACK (identifier | unsignedNumber) RBRACK
+   ;
+
+arrayType
+   : ARRAY LBRACK typeList RBRACK OF componentType
+   | ARRAY LBRACK2 typeList RBRACK2 OF componentType
+   ;
+
+typeList
+   : indexType (COMMA indexType)*
+   ;
+
+indexType
+   : simpleType
+   ;
+
+componentType
+   : type
+   ;
+
+
+fileType
+   : FILE OF type
+   | FILE
    ;
 
 
@@ -86,9 +145,6 @@ formalParameterList
 
 formalParameterSection
    : parameterGroup
-   | VAR parameterGroup
-   | FUNCTION parameterGroup
-   | PROCEDURE parameterGroup
    ;
 
 parameterGroup
@@ -99,10 +155,21 @@ identifierList
    : identifier (COMMA identifier)*
    ;
 
-functionDeclaration
-   : FUNCTION identifier (formalParameterList)? COLON typeIdentifier SEMI block
+constList
+   : constant (COMMA constant)*
    ;
 
+functionDeclaration
+   : FUNCTION identifier (formalParameterList)? COLON resultType SEMI block
+   ;
+
+resultType
+   : typeIdentifier
+   ;
+
+statement
+   : unlabelledStatement
+   ;
 
 unlabelledStatement
    : simpleStatement
@@ -144,12 +211,12 @@ factor
    | LPAREN expression RPAREN
    | functionDesignator
    | unsignedConstant
-   | set
    | NOT factor
    ;
 
 unsignedConstant
-   : unsignedInteger
+   : unsignedNumber
+   | string
    | NIL
    ;
 
@@ -158,26 +225,19 @@ functionDesignator
    ;
 
 parameterList
-   : expression (COMMA expression)*
+   : actualParameter (COMMA actualParameter)*
    ;
 
-set
-   : LBRACK elementList RBRACK
-   | LBRACK2 elementList RBRACK2
-   ;
-
-elementList
-   : element (COMMA element)*
-   |
-   ;
-
-element
-   : expression (DOTDOT expression)?
-   ;
 
 procedureStatement
    : identifier (LPAREN parameterList RPAREN)?
    ;
+
+actualParameter
+   : expression
+   ;
+
+
 
 emptyStatement
    :
@@ -185,7 +245,7 @@ emptyStatement
 
 structuredStatement
    : compoundStatement
-   | ifStatement
+   | conditionalStatement
    | repetetiveStatement
    ;
 
@@ -194,11 +254,24 @@ compoundStatement
    ;
 
 statements
-   : unlabelledStatement (SEMI unlabelledStatement)*
+   : statement (SEMI statement)*
+   ;
+
+conditionalStatement
+   : ifStatement
+   | caseStatement
    ;
 
 ifStatement
-   : IF expression THEN unlabelledStatement (: ELSE unlabelledStatement)?
+   : IF expression THEN statement (: ELSE statement)?
+   ;
+
+caseStatement
+   : CASE expression OF caseListElement (SEMI caseListElement)* (SEMI ELSE statements)? END
+   ;
+
+caseListElement
+   : constList COLON statement
    ;
 
 repetetiveStatement
@@ -208,7 +281,7 @@ repetetiveStatement
    ;
 
 whileStatement
-   : WHILE expression DO unlabelledStatement
+   : WHILE expression DO statement
    ;
 
 repeatStatement
@@ -216,15 +289,23 @@ repeatStatement
    ;
 
 forStatement
-   : FOR identifier ASSIGN forList DO unlabelledStatement
+   : FOR identifier ASSIGN forList DO statement
    ;
 
 forList
-   : expression (TO | DOWNTO) expression
+   : initialValue (TO | DOWNTO) finalValue
+   ;
+
+initialValue
+   : expression
+   ;
+
+finalValue
+   : expression
    ;
 
 
-   
+
 fragment A
    : ('a' | 'A')
    ;
@@ -360,6 +441,11 @@ AND
    ;
 
 
+ARRAY
+   : A R R A Y
+   ;
+
+
 BEGIN
    : B E G I N
    ;
@@ -367,6 +453,11 @@ BEGIN
 
 BOOLEAN
    : B O O L E A N
+   ;
+
+
+CASE
+   : C A S E
    ;
 
 
@@ -405,6 +496,11 @@ END
    ;
 
 
+FILE
+   : F I L E
+   ;
+
+
 FOR
    : F O R
    ;
@@ -413,6 +509,9 @@ FOR
 FUNCTION
    : F U N C T I O N
    ;
+
+
+
 
 
 IF
@@ -430,6 +529,9 @@ INTEGER
    ;
 
 
+
+
+
 MOD
    : M O D
    ;
@@ -444,10 +546,17 @@ NOT
    : N O T
    ;
 
-   
+
+OF
+   : O F
+   ;
+
+
 OR
    : O R
    ;
+
+
 
 
 PROCEDURE
@@ -459,9 +568,24 @@ PROGRAM
    : P R O G R A M
    ;
 
-   
+
+REAL
+   : R E A L
+   ;
+
+
+RECORD
+   : R E C O R D
+   ;
+
+
 REPEAT
    : R E P E A T
+   ;
+
+
+SET
+   : S E T
    ;
 
 
@@ -472,6 +596,11 @@ THEN
 
 TO
    : T O
+   ;
+
+
+TYPE
+   : T Y P E
    ;
 
 
@@ -487,6 +616,11 @@ VAR
 
 WHILE
    : W H I L E
+   ;
+
+
+WITH
+   : W I T H
    ;
 
 
@@ -590,16 +724,22 @@ RBRACK2
    ;
 
 
+
+AT
+   : '@'
+   ;
+
+
 DOT
    : '.'
    ;
 
-   
+
 DOTDOT
    : '..'
    ;
-   
-   
+
+
 LCURLY
    : '{'
    ;
@@ -610,9 +750,25 @@ RCURLY
    ;
 
 
+UNIT
+   : U N I T
+   ;
+
+
+INTERFACE
+   : I N T E R F A C E
+   ;
+
+
 USES
    : U S E S
    ;
+
+
+STRING
+   : S T R I N G
+   ;
+
 
 
 WS
@@ -635,6 +791,16 @@ IDENT
    ;
 
 
-NUM_INT
-   : ('0' .. '9') + 
+STRING_LITERAL
+   : '\'' ('\'\'' | ~ ('\''))* '\''
    ;
+
+
+NUM_INT
+   : ('0' .. '9') + (('.' ('0' .. '9') + (EXPONENT)?)? | EXPONENT)
+   ;
+
+
+fragment EXPONENT
+   : ('e') ('+' | '-')? ('0' .. '9') +
+;
