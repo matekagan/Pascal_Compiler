@@ -27,6 +27,7 @@ public class FileHandler {
         }
     }
 
+
     public void writeConstantDefinition(String identifier, String value, boolean global){
         DataType type;
         try {
