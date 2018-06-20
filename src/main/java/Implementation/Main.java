@@ -19,11 +19,12 @@ public class Main {
             CharStream charStream = CharStreams.fromFileName("Sample.pas");
             PascalLexer lexer = new PascalLexer(charStream);
             PascalParser parser = new PascalParser(new CommonTokenStream(lexer));
-            PascalParser.ProgramContext program = parser.program();
             RepeatListener listenerImplementation = new RepeatListener();
+            PascalParser.ProgramContext program = parser.program();
             ParseTreeWalker.DEFAULT.walk(listenerImplementation,program);
 
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
