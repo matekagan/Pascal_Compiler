@@ -1,16 +1,27 @@
 package Implementation;
 
-import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.*;
+
+import org.antlr.v4.runtime.tree.ErrorNode;
 import parser.PascalBaseListener;
 import parser.PascalParser;
 import utils.DataType;
 
 
-public class BaseListener extends PascalBaseListener {
+
+
+public class BaseListener extends PascalBaseListener{
     protected FileHandler fileHandler;
     private int blockCount;
     private boolean ifFisrtFunctionParameter;
     private boolean isInsidefuntion;
+
+    private String text="";
+
+    public String getText() {
+        return text;
+    }
+
 
     public BaseListener() {
         fileHandler = new FileHandler("out.c");
@@ -171,8 +182,13 @@ public class BaseListener extends PascalBaseListener {
         if (ctx.parameterList() == null) fileHandler.writeString("()");
     }
 
+    @Override public void visitErrorNode(ErrorNode node) {
+        System.out.println(node.getText());
+    }
+
 
 }
+
 
 
 
