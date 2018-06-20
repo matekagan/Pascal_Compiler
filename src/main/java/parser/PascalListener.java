@@ -158,16 +158,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitScalarType(PascalParser.ScalarTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#subrangeType}.
-	 * @param ctx the parse tree
-	 */
-	void enterSubrangeType(PascalParser.SubrangeTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#subrangeType}.
-	 * @param ctx the parse tree
-	 */
-	void exitSubrangeType(PascalParser.SubrangeTypeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#typeIdentifier}.
 	 * @param ctx the parse tree
 	 */
@@ -178,26 +168,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitTypeIdentifier(PascalParser.TypeIdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#structuredType}.
-	 * @param ctx the parse tree
-	 */
-	void enterStructuredType(PascalParser.StructuredTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#structuredType}.
-	 * @param ctx the parse tree
-	 */
-	void exitStructuredType(PascalParser.StructuredTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#unpackedStructuredType}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnpackedStructuredType(PascalParser.UnpackedStructuredTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#unpackedStructuredType}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnpackedStructuredType(PascalParser.UnpackedStructuredTypeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#stringtype}.
 	 * @param ctx the parse tree
 	 */
@@ -207,56 +177,6 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStringtype(PascalParser.StringtypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#arrayType}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayType(PascalParser.ArrayTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#arrayType}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayType(PascalParser.ArrayTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#typeList}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypeList(PascalParser.TypeListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#typeList}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypeList(PascalParser.TypeListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#indexType}.
-	 * @param ctx the parse tree
-	 */
-	void enterIndexType(PascalParser.IndexTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#indexType}.
-	 * @param ctx the parse tree
-	 */
-	void exitIndexType(PascalParser.IndexTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#componentType}.
-	 * @param ctx the parse tree
-	 */
-	void enterComponentType(PascalParser.ComponentTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#componentType}.
-	 * @param ctx the parse tree
-	 */
-	void exitComponentType(PascalParser.ComponentTypeContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PascalParser#fileType}.
-	 * @param ctx the parse tree
-	 */
-	void enterFileType(PascalParser.FileTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#fileType}.
-	 * @param ctx the parse tree
-	 */
-	void exitFileType(PascalParser.FileTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#variableDeclarationPart}.
 	 * @param ctx the parse tree

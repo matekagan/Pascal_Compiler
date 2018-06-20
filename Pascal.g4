@@ -59,12 +59,10 @@ string
 
 type
    : simpleType
-   | structuredType
    ;
 
 simpleType
    : scalarType
-   | subrangeType
    | typeIdentifier
    | stringtype
    ;
@@ -73,49 +71,16 @@ scalarType
    : LPAREN identifierList RPAREN
    ;
 
-subrangeType
-   : constant DOTDOT constant
-   ;
 
 typeIdentifier
    : (CHAR | BOOLEAN | INTEGER | REAL | STRING)
    ;
 
-structuredType
-   : unpackedStructuredType
-   ;
-
-unpackedStructuredType
-   : arrayType
-   | fileType
-   ;
 
 stringtype
    : STRING LBRACK (identifier | unsignedNumber) RBRACK
    ;
 
-arrayType
-   : ARRAY LBRACK typeList RBRACK OF componentType
-   | ARRAY LBRACK2 typeList RBRACK2 OF componentType
-   ;
-
-typeList
-   : indexType (COMMA indexType)*
-   ;
-
-indexType
-   : simpleType
-   ;
-
-componentType
-   : type
-   ;
-
-
-fileType
-   : FILE OF type
-   | FILE
-   ;
 
 
 variableDeclarationPart
@@ -441,11 +406,6 @@ AND
    ;
 
 
-ARRAY
-   : A R R A Y
-   ;
-
-
 BEGIN
    : B E G I N
    ;
@@ -493,11 +453,6 @@ ELSE
 
 END
    : E N D
-   ;
-
-
-FILE
-   : F I L E
    ;
 
 

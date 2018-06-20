@@ -142,13 +142,7 @@ public class PascalListenerImplementation extends PascalBaseListener {
             fileHandler.writeString("\n} while(");
         } else fileHandler.writeString("\n}");
     }
-    /*
-    @Override
-    public void exitCompoundStatement(PascalParser.CompoundStatementContext ctx) {
-        fileHandler.writeString("}\n");
 
-    }
-    */
     @Override
     public void enterWhileStatement(PascalParser.WhileStatementContext ctx) {
         fileHandler.writeString("while ");
@@ -175,9 +169,34 @@ public class PascalListenerImplementation extends PascalBaseListener {
         fileHandler.writeForStatement(counter,initialValue,finalValue,sign);
     }
 
+
+
     @Override
     public void enterExpression(PascalParser.ExpressionContext ctx) {
-        fileHandler.writeString(ctx.getText());
+        String text = ctx.getText();
+        if(ctx.getParent().getParent() instanceof PascalParser.RepetetiveStatementContext ||
+                ctx.getParent().getParent() instanceof PascalParser.ConditionalStatementContext){
+            fileHandler.writeString("(");
+        }
+        if (!(ctx.getParent() instanceof PascalParser.ParameterListContext)) {
+            String finaText = text.replace("=","==")
+                    .replace("<>","!=")
+                    .replaceAll(" [aA][nN][dD] "," && ")
+                    .replaceAll(" [oO][rR] "," || ")
+                    .replaceAll(" [dD][iI][vV] ", " / ")
+                    .replaceAll(" [mM][Oo][dD] ", " % ")
+                    .replace("'","\"");
+            fileHandler.writeString(finaText);
+
+        }
+    }
+
+    @Override
+    public void exitExpression(PascalParser.ExpressionContext ctx) {
+        if(ctx.getParent().getParent() instanceof PascalParser.RepetetiveStatementContext ||
+                ctx.getParent().getParent() instanceof PascalParser.ConditionalStatementContext){
+            fileHandler.writeString(")");
+        }
     }
 
     @Override
@@ -199,12 +218,26 @@ public class PascalListenerImplementation extends PascalBaseListener {
     }
 
     @Override
-    public void exitAssignmentStatement(PascalParser.AssignmentStatementContext ctx){
-        fileHandler.writeString(" ; \n");
+    public void exitSimpleStatement(PascalParser.SimpleStatementContext ctx) {
+        if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
     }
 
+    @Override
+    public void enterProcedureStatement(PascalParser.ProcedureStatementContext ctx) {
+        String identifier = ctx.identifier().getText();
+        fileHandler.writeString(identifier);
+        if (ctx.parameterList() == null) fileHandler.writeString("()");
+    }
 
+    @Override
+    public void enterParameterList(PascalParser.ParameterListContext ctx) {
+        fileHandler.writeString("(");
+    }
 
+    @Override
+    public void exitParameterList(PascalParser.ParameterListContext ctx) {
+        fileHandler.writeString(")");
+    }
 }
 
 

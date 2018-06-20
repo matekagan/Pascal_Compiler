@@ -1,20 +1,23 @@
 Program Lesson1_Program3;
+Var       
+    Num1, Num2, Sum : Integer;
 
-const
-	Stala = 1;
-var
-	Zmienna : Integer;
-	
-function dupa : Integer;
-var
- Result : Integer;
+function dupa( x : Integer) : Integer;
 begin
-    R2:=x + y;
+	dupa := x + 6;
 end;
-
-begin
-	while x > 4 do
-	begin
 	
+Begin {no semicolon}
+
+	if Sum <> 2 then Sum := 1;
+	
+	while Sum = 2 do Sum := 1;
+	
+	repeat Sum := Sum + 1 until Sum > 5;
+
+	For I := 1 to 20 do
+	begin
+		Sum := Sum + dupa(I);
 	end;
-end.
+	
+End.
