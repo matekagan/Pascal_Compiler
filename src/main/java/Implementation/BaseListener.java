@@ -3,6 +3,7 @@ package Implementation;
 import org.antlr.v4.runtime.*;
 
 import org.antlr.v4.runtime.tree.ErrorNode;
+
 import parser.PascalBaseListener;
 import parser.PascalParser;
 import utils.DataType;
@@ -16,7 +17,7 @@ public class BaseListener extends PascalBaseListener{
     private boolean ifFisrtFunctionParameter;
     private boolean isInsidefuntion;
 
-    
+
 
     public BaseListener() {
         fileHandler = new FileHandler("out.c");
@@ -178,11 +179,15 @@ public class BaseListener extends PascalBaseListener{
     }
 
     @Override public void visitErrorNode(ErrorNode node) {
-        System.out.println(node.getText());
+        System.out.println(node.getText() + " line: " + node.getSymbol().getLine() + ":" + node.getSymbol().getCharPositionInLine());
     }
 
-
 }
+
+
+
+
+
 
 
 
