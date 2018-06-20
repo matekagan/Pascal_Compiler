@@ -35,7 +35,7 @@ end;
 
 
 begin
-	writeln(dodaj(2,1))
+	writeln(dodaj(2,1),1,1.2,'asd');
     writeln(dodaj(4,5));
     
      for i := 1 to 5 do

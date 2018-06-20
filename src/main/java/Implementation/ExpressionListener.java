@@ -2,7 +2,7 @@ package Implementation;
 
 import parser.PascalParser;
 import utils.ExpressionTypesExtractor;
-import utils.FunctionFabric;
+import utils.FunctionFactory;
 import utils.functions.StdioFunction;
 
 public class ExpressionListener extends BaseListener {
@@ -100,8 +100,8 @@ public class ExpressionListener extends BaseListener {
     public void enterProcedureStatement(PascalParser.ProcedureStatementContext ctx) {
         ExpressionTypesExtractor extractor;
         String identifier = ctx.identifier().getText();
-        if (FunctionFabric.isStdioFunction(identifier)){
-            StdioFunction function = FunctionFabric.createFunction(identifier);
+        if (FunctionFactory.isStdioFunction(identifier)){
+            StdioFunction function = FunctionFactory.createFunction(identifier);
             extractor = new ExpressionTypesExtractor(ctx.parameterList(),this);
             function.setParameterList(extractor.getDataTypesList());
             function.processParameters();

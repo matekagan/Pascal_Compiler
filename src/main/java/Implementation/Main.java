@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import parser.PascalLexer;
 import parser.PascalParser;
+import utils.DataType;
 
 import java.io.IOException;
 
@@ -22,7 +23,6 @@ public class Main {
             RepeatListener listenerImplementation = new RepeatListener();
             PascalParser.ProgramContext program = parser.program();
             ParseTreeWalker.DEFAULT.walk(listenerImplementation,program);
-
         } catch (IOException e) {
 
             e.printStackTrace();

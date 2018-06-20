@@ -4,9 +4,6 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import parser.PascalBaseListener;
 import parser.PascalParser;
 import utils.DataType;
-import utils.ExpressionTypesExtractor;
-import utils.FunctionFabric;
-import utils.functions.StdioFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -190,9 +187,7 @@ public class BaseListener extends PascalBaseListener {
     public void exitSimpleStatement(PascalParser.SimpleStatementContext ctx) {
         if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
     }
-
-
-
+    
 
 }
 

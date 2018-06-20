@@ -1,7 +1,6 @@
 package utils;
 
 import Implementation.BaseListener;
-import parser.PascalBaseListener;
 import parser.PascalParser;
 
 import java.util.LinkedList;
@@ -22,7 +21,9 @@ public class ExpressionTypesExtractor {
     public List<DataType> getDataTypesList(){
         createTypesList();
         List<DataType> list = new LinkedList<>();
-        for (String s : typeNamesList) list.add(new DataType(s));
+        for (String s : typeNamesList){
+            list.add(new DataType(s));
+        }
         return list;
     }
 
@@ -33,26 +34,26 @@ public class ExpressionTypesExtractor {
     }
 
     private String extractParameterTypefromExpression(PascalParser.ExpressionContext parameter){
-        if (parameter.getChildCount() > 2) return "INTEGER";
+        if (parameter.getChildCount() > 2) return "BOOLEAN";
         else {
             return extractParameterTypeFromSimpleExpression(parameter.simpleExpression(0));
         }
     }
 
     private String extractParameterTypeFromSimpleExpression(PascalParser.SimpleExpressionContext expression){
-        if (expression.OR() != null) return "INTEGER";
+        if (! expression.OR().isEmpty()) return "BOOLEAN";
         else {
             return extractParameterTypeFromTerm(expression.term(0));
         }
     }
 
     private String extractParameterTypeFromTerm(PascalParser.TermContext term){
-        if (term.AND() != null) return "INTEGER";
-        else if (term.DIV() != null || term.MOD() != null) return "INTEGER";
-        else return extractParameterTyprFromFactor(term.signedFactor(0).factor());
+        if (! term.AND().isEmpty()) return "BOOLEAN";
+        else if ( !term.DIV().isEmpty() || ! term.MOD().isEmpty()) return "INTEGER";
+        else return extractParameterTypeFromFactor(term.signedFactor(0).factor());
     }
 
-    private String extractParameterTyprFromFactor(PascalParser.FactorContext factor){
+    private String extractParameterTypeFromFactor(PascalParser.FactorContext factor){
         if (factor.unsignedConstant() != null) return extractParameterTypeFromUnsignedConstant(factor.unsignedConstant());
         else if (factor.expression() != null) return extractParameterTypefromExpression(factor.expression());
         else if (factor.NOT() != null) return "INTEGER";
@@ -68,9 +69,8 @@ public class ExpressionTypesExtractor {
     private String extractParameterTypeFromUnsignedConstant(PascalParser.UnsignedConstantContext constant){
         if (constant.string() != null) return "STRING";
         else {
-            PascalParser.UnsignedNumberContext number = constant.unsignedNumber();
-            if (number.unsignedInteger() != null) return "INTEGER";
-            else return "REAL";
+            String number = constant.unsignedNumber().getText();
+            return DataType.getDataTypeFromValue(number).getValue();
         }
     }
 

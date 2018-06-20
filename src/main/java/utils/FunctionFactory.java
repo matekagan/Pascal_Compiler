@@ -7,7 +7,7 @@ import utils.functions.StdioWriteln;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FunctionFabric {
+public class FunctionFactory {
 
     private static Set<String> stdioFunctions;
 
