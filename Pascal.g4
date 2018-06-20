@@ -472,7 +472,7 @@ CONST
 
 
 DIV
-   : D I V
+   : '/'
    ;
 
 

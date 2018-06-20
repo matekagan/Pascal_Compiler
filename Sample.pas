@@ -10,6 +10,12 @@ var
  Result : Integer;
 begin
     R2:=x + y;
+
+    if R2 < 5 then
+    begin
+        x := a+g;
+        y:= c+d;
+    end;
 end;
 
 begin

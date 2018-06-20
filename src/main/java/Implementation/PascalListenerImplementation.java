@@ -204,6 +204,23 @@ public class PascalListenerImplementation extends PascalBaseListener {
     }
 
 
+    @Override
+    public void enterIfStatement(PascalParser.IfStatementContext ctx){
+        fileHandler.writeString("if " );
+
+
+    }
+
+
+
+
+    @Override
+    public void exitIfStatement(PascalParser.IfStatementContext ctx){
+           // fileHandler.writeString("} \n");
+
+    }
+
+
 
 }
 
