@@ -1,15 +1,14 @@
 package Implementation;
 
-import org.antlr.v4.runtime.RuleContext;
 import parser.PascalParser;
+import utils.ExpressionTypesExtractor;
+import utils.FunctionFabric;
+import utils.functions.StdioFunction;
 
 public class ExpressionListener extends BaseListener {
 
-    private boolean forceMode;
-
     public ExpressionListener() {
         super();
-        forceMode = true;
     }
 
     @Override
@@ -94,13 +93,32 @@ public class ExpressionListener extends BaseListener {
 
     @Override
     public void enterFunctionDesignator(PascalParser.FunctionDesignatorContext ctx) {
-        fileHandler.writeString(ctx.identifier().getText());
+        fileHandler.writeString(ctx.identifier().getText() + "(");
     }
 
     @Override
+    public void enterProcedureStatement(PascalParser.ProcedureStatementContext ctx) {
+        ExpressionTypesExtractor extractor;
+        String identifier = ctx.identifier().getText();
+        if (FunctionFabric.isStdioFunction(identifier)){
+            StdioFunction function = FunctionFabric.createFunction(identifier);
+            extractor = new ExpressionTypesExtractor(ctx.parameterList(),this);
+            function.setParameterList(extractor.getDataTypesList());
+            function.processParameters();
+            fileHandler.writeString(function.getFunctionDesignator());
+        } else {
+            fileHandler.writeString(identifier + "(");
+            if (ctx.parameterList() == null) fileHandler.writeString("()");
+        }
+
+    }
+    /*
+    @Override
     public void enterParameterList(PascalParser.ParameterListContext ctx) {
+
         fileHandler.writeString("(");
     }
+    */
 
     @Override
     public void exitActualParameter(PascalParser.ActualParameterContext ctx) {

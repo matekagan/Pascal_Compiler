@@ -5,14 +5,24 @@ import java.util.Map;
 
 public class DataType {
     private static Map<String,String> typesMap;
+    private static Map<String,String> stdioTypes;
 
     static {
         typesMap = new HashMap<String, String>();
         typesMap.put("INTEGER", "int");
         typesMap.put("CHAR", "char");
-        typesMap.put("BOOLEAN", "bool");
+        typesMap.put("BOOLEAN", "int");
         typesMap.put("REAL", "float");
         typesMap.put("STRING", "char*");
+    }
+
+    static {
+        stdioTypes = new HashMap<String, String>();
+        stdioTypes.put("INTEGER", "%d");
+        stdioTypes.put("CHAR", "%c");
+        stdioTypes.put("BOOLEAN", "%d");
+        stdioTypes.put("REAL", "%f");
+        stdioTypes.put("STRING", "%s");
     }
 
     private String value;
@@ -23,6 +33,14 @@ public class DataType {
 
     public boolean isInitialized(){
         return typesMap.containsKey(value);
+    }
+
+    public String getStdioFormat(){
+            return stdioTypes.get(value) == null ? "" : stdioTypes.get(value);
+    }
+
+    public String getValue(){
+        return value;
     }
 
     @Override

@@ -4,6 +4,12 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import parser.PascalBaseListener;
 import parser.PascalParser;
 import utils.DataType;
+import utils.ExpressionTypesExtractor;
+import utils.FunctionFabric;
+import utils.functions.StdioFunction;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BaseListener extends PascalBaseListener {
@@ -12,11 +18,19 @@ public class BaseListener extends PascalBaseListener {
     private boolean ifFisrtFunctionParameter;
     private boolean isInsidefuntion;
 
+    public Map<String,String> globalVariables;
+    public Map<String,String> functions;
+    public Map<String,String> functionVariables;
+
+
     public BaseListener() {
         fileHandler = new FileHandler("out.c");
         blockCount = 0;
         ifFisrtFunctionParameter = true;
         isInsidefuntion = false;
+        globalVariables = new HashMap<>();
+        functions = new HashMap<>();
+        functionVariables = new HashMap<>();
     }
 
     @Override
@@ -37,6 +51,7 @@ public class BaseListener extends PascalBaseListener {
     public void enterFunctionDeclaration(PascalParser.FunctionDeclarationContext ctx) {
         String identifier = ctx.identifier().getText();
         DataType returnType = new DataType(ctx.resultType().getText());
+        functions.put(identifier,returnType.getValue());
         fileHandler.writeString("\n" + returnType.toString() + " " + identifier);
         if (ctx.formalParameterList() == null) fileHandler.writeString("()");
         isInsidefuntion = true;
@@ -44,12 +59,14 @@ public class BaseListener extends PascalBaseListener {
 
     @Override
     public void exitProcedureDeclaration(PascalParser.ProcedureDeclarationContext ctx) {
+        functionVariables.clear();
         ifFisrtFunctionParameter = true;
         isInsidefuntion = false;
     }
 
     @Override
     public void exitFunctionDeclaration(PascalParser.FunctionDeclarationContext ctx) {
+        functionVariables.clear();
         ifFisrtFunctionParameter = true;
         isInsidefuntion = false;
     }
@@ -89,8 +106,10 @@ public class BaseListener extends PascalBaseListener {
         String value = ctx.constant().getText();
         if (blockCount == 1){
             fileHandler.writeConstantDefinition(identifier,value,true);
+            globalVariables.put(identifier,DataType.getDataTypeFromValue(value).getValue());
         } else {
             fileHandler.writeConstantDefinition(identifier,value,false);
+            functionVariables.put(identifier,DataType.getDataTypeFromValue(value).getValue());
         }
 
     }
@@ -98,6 +117,14 @@ public class BaseListener extends PascalBaseListener {
     @Override
     public void exitVariableDeclaration(PascalParser.VariableDeclarationContext ctx) {
         DataType dataType = new DataType(ctx.type().getText());
+        PascalParser.IdentifierListContext context = ctx.identifierList();
+        for (PascalParser.IdentifierContext id : context.identifier()){
+            if (blockCount == 1){
+                globalVariables.put(id.getText(),dataType.getValue());
+            } else {
+                functionVariables.put(id.getText(),dataType.getValue());
+            }
+        }
         String variableList = ctx.identifierList().getText();
         fileHandler.writeVariableDeclaration(variableList,dataType);
     }
@@ -164,12 +191,7 @@ public class BaseListener extends PascalBaseListener {
         if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
     }
 
-    @Override
-    public void enterProcedureStatement(PascalParser.ProcedureStatementContext ctx) {
-        String identifier = ctx.identifier().getText();
-        fileHandler.writeString(identifier);
-        if (ctx.parameterList() == null) fileHandler.writeString("()");
-    }
+
 
 
 }
