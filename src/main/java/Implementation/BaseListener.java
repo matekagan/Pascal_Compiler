@@ -16,12 +16,7 @@ public class BaseListener extends PascalBaseListener{
     private boolean ifFisrtFunctionParameter;
     private boolean isInsidefuntion;
 
-    private String text="";
-
-    public String getText() {
-        return text;
-    }
-
+    
 
     public BaseListener() {
         fileHandler = new FileHandler("out.c");
