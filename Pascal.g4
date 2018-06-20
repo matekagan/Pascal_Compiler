@@ -1,12 +1,11 @@
 grammar Pascal;
 
 program
-   : programHeading (INTERFACE)? block DOT
+   : programHeading block DOT
    ;
 
 programHeading
    : PROGRAM identifier (LPAREN identifierList RPAREN)? SEMI
-   | UNIT identifier SEMI
    ;
 
 identifier
@@ -521,19 +520,10 @@ REAL
    ;
 
 
-RECORD
-   : R E C O R D
-   ;
-
-
 REPEAT
    : R E P E A T
    ;
 
-
-SET
-   : S E T
-   ;
 
 
 THEN
@@ -565,10 +555,6 @@ WHILE
    : W H I L E
    ;
 
-
-WITH
-   : W I T H
-   ;
 
 
 PLUS
@@ -671,19 +657,8 @@ RBRACK2
    ;
 
 
-
-AT
-   : '@'
-   ;
-
-
 DOT
    : '.'
-   ;
-
-
-DOTDOT
-   : '..'
    ;
 
 
@@ -696,20 +671,6 @@ RCURLY
    : '}'
    ;
 
-
-UNIT
-   : U N I T
-   ;
-
-
-INTERFACE
-   : I N T E R F A C E
-   ;
-
-
-USES
-   : U S E S
-   ;
 
 
 STRING

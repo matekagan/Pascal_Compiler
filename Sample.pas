@@ -1,26 +1,52 @@
-Program Lesson1_Program3;
+Program projekt;
 
 const
 	Stala = 1;
 var
-	Zmienna : Integer;
-	
-function dupa : Integer;
+	i : Integer;
+	j : Integer;
+function dodaj(x: Integer;y:Integer) : Integer;
 var
  Result : Integer;
 begin
-    R2:=x + y;
+    Result:=x + y;
 
-    if R2 < 5 then
-    begin
-        x := a+g;
-        y:= c+d;
-    end;
+    if Result < 5 then
+        Result := Result + 4;
+        
+    dodaj := Result;    
 end;
 
+function silnia(z:Integer) : Integer;
+var 
+    s: Integer;
+    i: Integer;
 begin
-	while x > 4 do
-	begin
+  i:=1;
+  s:=1;
+  while i<=z and i > z-12 do 
+  begin
+    s:=s*i;
+    i:=i+1;
+  end;
+  
+  silnia:=s;
+end;
+
+
+begin
+	writeln(dodaj(2,1));
+    writeln(dodaj(4,5));
+    
+     for i := 1 to 5 do
+     begin
+      Writeln(i); 
+     end;
+    
 	
-	end;
+     
+     writeln(silnia(5));
+     
+    
+    
 end.
