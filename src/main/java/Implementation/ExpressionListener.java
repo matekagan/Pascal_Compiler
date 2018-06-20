@@ -80,6 +80,7 @@ public class ExpressionListener extends BaseListener {
                     .replaceAll("^[dD][iI][vV]$", " / ")
                     .replaceAll("^[mM][Oo][dD]$", " % ");
             fileHandler.writeString(operator);
+
         }
     }
 
