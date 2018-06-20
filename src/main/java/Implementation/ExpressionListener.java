@@ -14,25 +14,10 @@ public class ExpressionListener extends BaseListener {
 
     @Override
     public void enterExpression(PascalParser.ExpressionContext ctx) {
-
         if(ctx.getParent().getParent() instanceof PascalParser.RepetetiveStatementContext ||
                 ctx.getParent().getParent() instanceof PascalParser.ConditionalStatementContext){
             fileHandler.writeString("(");
         }
-        /*
-        String text = ctx.getText();
-        if (!(ctx.getParent() instanceof PascalParser.ParameterListContext)) {
-            String finaText = text.replace("=","==")
-                    .replace("<>","!=")
-                    .replaceAll(" [aA][nN][dD] "," && ")
-                    .replaceAll(" [oO][rR] "," || ")
-                    .replaceAll(" [dD][iI][vV] ", " / ")
-                    .replaceAll(" [mM][Oo][dD] ", " % ")
-                    .replace("'","\"");
-            fileHandler.writeString(finaText);
-
-        }
-        */
 
     }
 
@@ -48,6 +33,7 @@ public class ExpressionListener extends BaseListener {
     public void exitSimpleExpression(PascalParser.SimpleExpressionContext ctx) {
         PascalParser.ExpressionContext parent = (PascalParser.ExpressionContext) ctx.getParent();
         int index = parent.simpleExpression().indexOf(ctx);
+        //System.out.println("index:  " + index + "   size:   " + parent.simpleExpression().size());
         if (index < parent.simpleExpression().size()-1){
             String operator = parent.getChild(2*index + 1).getText()
                     .replaceAll("^=$","==").replace("<>","!=");
@@ -97,6 +83,7 @@ public class ExpressionListener extends BaseListener {
 
     @Override
     public void enterVariable(PascalParser.VariableContext ctx) {
+        if(! (ctx.getParent() instanceof PascalParser.AssignmentStatementContext))
         fileHandler.writeString(ctx.getText());
     }
 

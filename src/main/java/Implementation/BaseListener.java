@@ -113,6 +113,7 @@ public class BaseListener extends PascalBaseListener {
     @Override
     public void enterStatements(PascalParser.StatementsContext ctx) {
         ParserRuleContext gggParrent = ctx.getParent().getParent().getParent();
+
         if (gggParrent instanceof PascalParser.FunctionDeclarationContext){
             PascalParser.FunctionDeclarationContext functionContext =
                     (PascalParser.FunctionDeclarationContext) gggParrent;
