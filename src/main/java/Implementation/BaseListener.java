@@ -183,11 +183,17 @@ public class BaseListener extends PascalBaseListener {
         fileHandler.writeString(variable + " = ");
     }
 
-    @Override
-    public void exitSimpleStatement(PascalParser.SimpleStatementContext ctx) {
-        if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
-    }
-    
+        @Override
+        public void exitSimpleStatement(PascalParser.SimpleStatementContext ctx) {
+            if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
+        }
+
+
+        @Override public void visitErrorNode(ErrorNode node) {
+            System.out.println(node.getText() + " line: " + node.getSymbol().getLine() + ":" + node.getSymbol().getCharPositionInLine());
+
+        }
+
 
 }
 
