@@ -1,6 +1,7 @@
 package Implementation;
 
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
 import parser.PascalBaseListener;
 import parser.PascalParser;
 import utils.DataType;
@@ -145,7 +146,12 @@ public class BaseListener extends PascalBaseListener {
             DataType returnType = new DataType(functionContext.resultType().getText());
             fileHandler.writeVariableDeclaration(identifier, returnType);
             fileHandler.writeString("\n");
-        } else fileHandler.writeString("{\n");
+        } else if (ctx.getParent() instanceof PascalParser.CaseStatementContext){
+            fileHandler.writeString("default:\n{\n");
+        }
+        else{
+            fileHandler.writeString("{\n");
+        }
     }
 
     @Override
@@ -158,13 +164,17 @@ public class BaseListener extends PascalBaseListener {
             fileHandler.writeString("\nreturn " + identifier + "; \n}\n");
         } else if (ctx.getParent() instanceof PascalParser.RepeatStatementContext){
             fileHandler.writeString("\n} while(! ");
-        } else fileHandler.writeString("\n}\n");
+        } else if (ctx.getParent() instanceof PascalParser.CaseStatementContext){
+            fileHandler.writeString("break;\n}\n");
+        } else if (ctx.getParent().getParent().getParent().getParent() != null &&
+                ctx.getParent().getParent().getParent().getParent().getParent()
+                        instanceof PascalParser.CaseListElementContext) {
+            fileHandler.writeString("break;\n}\n");
+        } else{
+            fileHandler.writeString("}\n");
+        }
     }
 
-    @Override
-    public void enterIfStatement(PascalParser.IfStatementContext ctx) {
-        fileHandler.writeString("if");
-    }
 
     @Override
     public void exitBlock(PascalParser.BlockContext ctx) {
@@ -189,7 +199,8 @@ public class BaseListener extends PascalBaseListener {
         }
 
 
-        @Override public void visitErrorNode(ErrorNode node) {
+        @Override
+        public void visitErrorNode(ErrorNode node) {
             System.out.println(node.getText() + " line: " + node.getSymbol().getLine() + ":" + node.getSymbol().getCharPositionInLine());
 
         }

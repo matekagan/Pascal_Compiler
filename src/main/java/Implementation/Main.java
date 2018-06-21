@@ -20,7 +20,7 @@ public class Main {
             CharStream charStream = CharStreams.fromFileName("Sample.pas");
             PascalLexer lexer = new PascalLexer(charStream);
             PascalParser parser = new PascalParser(new CommonTokenStream(lexer));
-            RepeatListener listenerImplementation = new RepeatListener();
+            ConditionalListener listenerImplementation = new ConditionalListener();
             PascalParser.ProgramContext program = parser.program();
             ParseTreeWalker.DEFAULT.walk(listenerImplementation,program);
         } catch (IOException e) {

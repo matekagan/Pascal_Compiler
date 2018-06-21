@@ -11,10 +11,15 @@ var
 begin
     Result:=x + y;
 
-    if Result < 5 then
-        Result := Result + 4;
-        
-    dodaj := Result;    
+	case x of
+	1: 
+	begin
+	writeln('jeden');
+	writeln('drugi napis')
+	end;
+	else writeln('niejeden');
+	end;
+	
 end;
 
 function silnia(z:Integer) : Integer;
@@ -35,7 +40,7 @@ end;
 
 
 begin
-	writeln(dodaj(2,1));
+	writeln(dodaj(1,1));
     writeln(dodaj(4,5));
     
      for i := 1 to 5 do
