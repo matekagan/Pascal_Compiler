@@ -14,7 +14,6 @@ public class BaseListener extends PascalBaseListener {
     protected FileHandler fileHandler;
     private int blockCount;
     private boolean ifFisrtFunctionParameter;
-    private boolean isInsidefuntion;
 
     public Map<String,String> globalVariables;
     public Map<String,String> functions;
@@ -25,7 +24,6 @@ public class BaseListener extends PascalBaseListener {
         fileHandler = new FileHandler("out.c");
         blockCount = 0;
         ifFisrtFunctionParameter = true;
-        isInsidefuntion = false;
         globalVariables = new HashMap<>();
         functions = new HashMap<>();
         functionVariables = new HashMap<>();
@@ -41,7 +39,6 @@ public class BaseListener extends PascalBaseListener {
         String identifier = ctx.identifier().getText();
         fileHandler.writeString("\nvoid " + identifier);
         if (ctx.formalParameterList() == null) fileHandler.writeString("()");
-        isInsidefuntion = true;
     }
 
 
@@ -52,21 +49,18 @@ public class BaseListener extends PascalBaseListener {
         functions.put(identifier,returnType.getValue());
         fileHandler.writeString("\n" + returnType.toString() + " " + identifier);
         if (ctx.formalParameterList() == null) fileHandler.writeString("()");
-        isInsidefuntion = true;
     }
 
     @Override
     public void exitProcedureDeclaration(PascalParser.ProcedureDeclarationContext ctx) {
         functionVariables.clear();
         ifFisrtFunctionParameter = true;
-        isInsidefuntion = false;
     }
 
     @Override
     public void exitFunctionDeclaration(PascalParser.FunctionDeclarationContext ctx) {
         functionVariables.clear();
         ifFisrtFunctionParameter = true;
-        isInsidefuntion = false;
     }
 
     @Override
@@ -94,7 +88,9 @@ public class BaseListener extends PascalBaseListener {
     public void enterBlock(PascalParser.BlockContext ctx) {
         if (ctx.getParent() instanceof PascalParser.FunctionDeclarationContext
                 || ctx.getParent() instanceof PascalParser.ProcedureDeclarationContext
-                )fileHandler.writeString("{\n");
+                ){
+            fileHandler.writeString("{\n");
+        }
         blockCount++;
     }
 
@@ -193,18 +189,17 @@ public class BaseListener extends PascalBaseListener {
         fileHandler.writeString(variable + " = ");
     }
 
-        @Override
-        public void exitSimpleStatement(PascalParser.SimpleStatementContext ctx) {
-            if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
-        }
+    @Override
+    public void exitSimpleStatement(PascalParser.SimpleStatementContext ctx) {
 
+        if (ctx.getText() != null &&  !ctx.getText().equals("")) fileHandler.writeString(";\n");
+    }
 
-        @Override
-        public void visitErrorNode(ErrorNode node) {
-            System.out.println(node.getText() + " line: " + node.getSymbol().getLine() + ":" + node.getSymbol().getCharPositionInLine());
+    @Override
 
-        }
-
+    public void visitErrorNode(ErrorNode node) {
+        System.out.println(node.getText() + " line: " + node.getSymbol().getLine() + ":" + node.getSymbol().getCharPositionInLine());
+    }
 
 }
 
